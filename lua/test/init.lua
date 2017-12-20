@@ -1,0 +1,25 @@
+local _M ={}
+
+-- ªÒ»°http get/post request params
+
+function _M.getArgs()
+   local request_method = ngx.val.request_method
+   local args = ngx.req.get_url_args()
+
+   if "POST" == request_method then
+	  
+	  ngx.req.read_body()
+	  
+	  local postArgs = ngx.req.get_post_args()
+
+	  if postArgs then
+		 
+		 for k,v in pairs(postArgs) do
+			args[k] = v 
+		 end
+	   end
+	end
+	return args
+end
+
+return _M
